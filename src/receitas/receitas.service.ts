@@ -1,8 +1,10 @@
 
+
 import { Injectable } from '@nestjs/common';
 import { Prisma, PrismaClient, receitas } from '@prisma/client';
 import { promises } from 'dns';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
+
 const prisma = new PrismaClient();
 
 @Injectable()
