@@ -24,7 +24,7 @@ export class ReceitaController {
     @Get()
     @ApiOperation({ summary: 'Lista todas as receitas' })
     @ApiResponse({ status: 200, description: 'Lista de receitas.' })
-    async todaareceita() {
+    async todasreceita() {
         return this.receitaSevice.todasreceitas()
     }
 
