@@ -1,18 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger/dist/decorators/api-operation.decorator';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { ReceitaService } from './receitas.service';
 import { CreateReceitasDto } from './DTO/create-receita.dto';
+import { JwtAuthGuard } from '../auth/jwt.guard';
+import { AdminGuard } from '../auth/admin.guard';
+import { UpdateReceitasDto } from './DTO/update-receita.dto';
 
 
-
+@ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
 @Controller('receitas')
 export class ReceitaController {
 
     constructor(private receitaSevice: ReceitaService){}
 
 
-
+    @UseGuards(AdminGuard)
     @Post('criar')
     @ApiOperation({ summary: 'Cria uma nova receita' })
     @ApiResponse({ status: 201, description: 'Receita criada com sucesso.' })
@@ -36,19 +40,20 @@ export class ReceitaController {
         return this.receitaSevice.buscaReceitas(id)
     }
 
-
+    @UseGuards(AdminGuard)
     @Put(":id")
     @ApiOperation({ summary: 'Atualiza uma receita por ID' })
     @ApiResponse({ status: 200, description: 'Receita atualizada com sucesso.' })
     @ApiResponse({ status: 404, description: 'Receita não encontrada.' })
-    async AtualizaReceitas(@Param('id') id: number, @Body() updateReceitaDto: CreateReceitasDto) {
-        return this.receitaSevice.atualizaReceitas(id, updateReceitaDto);
-    }
+   async AtualizaReceitas(@Param('id') id: string, @Body() data: UpdateReceitasDto) {
+  return this.receitaSevice.atualizaReceitas(Number(id), data);
+}
 
+    @UseGuards(AdminGuard)
     @Delete(":id")
     @ApiOperation({ summary: 'Remove uma receita por ID' })
     @ApiResponse({ status: 200, description: 'Receita removida com sucesso.' })
-    async deleteReceita(@Param('id') id: number) {
-        return this.receitaSevice.deleteReceitas(id);
+    async deleteReceita(@Param('id') id: string) {
+        return this.receitaSevice.deleteReceitas(Number(id));
     }
 }

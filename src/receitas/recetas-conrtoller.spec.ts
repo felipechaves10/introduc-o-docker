@@ -37,7 +37,7 @@ describe('ReceitaController teste', () => {
         expect(await controller.todasreceita()).toEqual(receitas)
 
     })
-    
+
 
 
     it("deve buscar uma receita pelo ID", async () => {
@@ -49,14 +49,14 @@ describe('ReceitaController teste', () => {
     it("deve atualizar uma receita ", async () => {
         const receita = { id: 1, nome: "Receita 1", ingredientes: ["Ingrediente 1", "Ingrediente 2"] };
         mockReceitaService.atualizaReceitas.mockResolvedValue(receita);
-        expect(await controller.AtualizaReceitas(1, receita as any)).toEqual(receita);
+        expect(await controller.AtualizaReceitas("1", receita as any)).toEqual(receita);
 
     })
     it("deve deletar uma receita ", async () => {
         const receita = { id: 1, nome: "Receita 1", ingredientes: ["Ingrediente 1", "Ingrediente 2"] };
         mockReceitaService.deleteReceitas.mockResolvedValue(receita);
 
-        expect(await controller.deleteReceita(1)).toEqual(receita);
+        expect(await controller.deleteReceita("1")).toEqual(receita);
 
     })
   })
