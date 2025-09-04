@@ -21,6 +21,6 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: postgresql://felipedb:12345feli@postgres:5432/intro_docker
+      DATABASE_URL: ${DATABASE_URL_CONTEINER}
     restart: unless-stopped
     command: sh -c "npx prisma migrate deploy && npm run start:prod"

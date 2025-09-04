@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { RegisterUserDto } from './DTO/resgiter.dto';
 import * as bcrypt from 'bcrypt'
 import { LoginDto } from './DTO/login.dto';
-import { use } from 'passport';
+import { use} from 'passport';
 import { User } from '@prisma/client';
 
 @Injectable()
